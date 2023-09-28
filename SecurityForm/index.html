@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Result</title>
+    
+</head>
+<body>
+    <?php if (isset($error_message)): ?>
+        <p>Error: <?php echo $error_message; ?></p>
+        <a href="index.html">Go back to registration</a>
+    <?php elseif (isset($success_message)): ?>
+        <h1>Registration Successful</h1>
+        <p>Name: <?php echo $name; ?></p>
+        <p>Email: <?php echo $email; ?></p>
+        <!-- You can add more information here as needed -->
+    <?php endif; ?>
+</body>
+</html>
+
+<? php
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve user input
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Validate email uniqueness (you should replace this with your database logic)
+    $isEmailUnique = true; // Assuming email is unique for now
+
+    // Validate password criteria (e.g., minimum length)
+    $isPasswordValid = strlen($password) >= 6; // You can define your own criteria
+
+    // Check validation results
+    if (!$isEmailUnique) {
+        $error_message = "Email is already in use.";
+    } elseif (!$isPasswordValid) {
+        $error_message = "Password must be at least 6 characters long.";
+    } else {
+        // Registration successful
+        $success_message = "Registration successful!";
+    }
+}
+?>
